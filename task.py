@@ -144,9 +144,7 @@ if __name__ == "__main__":
 	plt.show()
 	"""
 
-
-
-
+	gcloud ml - engine jobs submit training $JOB_NAME - -job - dir $OUTPUT_PATH - -runtime - version 1.2 - -module - name trainer.task	- -package - path trainer /	--region $REGIO
 
 
 
