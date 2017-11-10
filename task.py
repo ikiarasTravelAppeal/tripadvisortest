@@ -2,6 +2,9 @@ from sklearn.base import BaseEstimator
 import time
 import tensorflow as tf
 import numpy as np
+import pandas as pd
+import argparse
+
 
 class TF_NN(BaseEstimator):
 
@@ -122,6 +125,29 @@ class TF_NN(BaseEstimator):
 if __name__ == "__main__":
 	inizio = time.time()
 	seed = 0
+	parser = argparse.ArgumentParser()
+
+	parser.add_argument(
+		'--train-files',
+		help='GCS or local paths to training data',
+		nargs='+',
+		required=True
+	)
+
+	parser.add_argument(
+		'--job-dir',
+		help='GCS location to write checkpoints and export models',
+		required=True
+	)
+
+	args = parser.parse_args()
+	print(args.job_dir)
+	path = args.train_files[1]
+	# print(path)
+	X = pd.read_csv(args.train_files[0],sep=';').values
+	Y = pd.read_csv(args.train_files[1],sep=';').values
+
+	# print(X.shape, type(X))
 
 	####### BABY TEST
 	X_train = np.arange(20).reshape((20, 1))
@@ -131,11 +157,13 @@ if __name__ == "__main__":
 
 	model = TF_NN([15,10], learning_rate=0.0001, activation=tf.tanh, random_seed=0, batch=2, epochs=100)
 
+	writer = tf.summary.FileWriter(args.job_dir, model.g)
 
-	model.fit(X_train, y_train)
+	model.fit(X, Y)
 	#model.plotTrainingCost()
-	y_pred = model.predict(X_train)
+	y_pred = model.predict(X)
 	print(y_pred)
+	writer.close()
 
 
 	"""
