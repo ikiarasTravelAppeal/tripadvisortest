@@ -2,8 +2,6 @@ from sklearn.base import BaseEstimator
 import time
 import tensorflow as tf
 import numpy as np
-import matplotlib.pyplot as plt
-
 
 class TF_NN(BaseEstimator):
 
@@ -113,12 +111,12 @@ class TF_NN(BaseEstimator):
 			y_pred = self.sess.run(self.final_layer, feed_dict={self.tf_x: X})
 		return y_pred
 
-	def plotTrainingCost(self):
-		plt.plot(range(1, len(self.training_cost) + 1), self.training_cost)
-		plt.tight_layout()
-		plt.xlabel('Epochs')
-		plt.ylabel('Training Cost')
-		plt.show()
+	# def plotTrainingCost(self):
+		# plt.plot(range(1, len(self.training_cost) + 1), self.training_cost)
+		# plt.tight_layout()
+		# plt.xlabel('Epochs')
+		# plt.ylabel('Training Cost')
+		# plt.show()
 
 
 if __name__ == "__main__":
