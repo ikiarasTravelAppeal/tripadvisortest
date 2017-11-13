@@ -180,8 +180,8 @@ if __name__ == "__main__":
 	path = args.train_files[1]
 	print (os.path.isfile(path))
 	print(path)
-	X = pd.read_csv(args.train_files[0],sep=';').values
-	Y = pd.read_csv(args.train_files[1],sep=';').values
+	# X = pd.read_csv(args.train_files[0],sep=';').values
+	# Y = pd.read_csv(args.train_files[1],sep=';').values
 
 	# print(X.shape, type(X))
 
@@ -198,9 +198,9 @@ if __name__ == "__main__":
 
 	writer = tf.summary.FileWriter(args.job_dir, model.g)
 
-	model.fit(X, Y,save=True)
+	model.fit(X_train, y_train,save=True)
 	#model.plotTrainingCost()
-	y_pred = model.predict(X)
+	y_pred = model.predict(X_test)
 	print(y_pred)
 	writer.close()
 
