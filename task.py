@@ -135,6 +135,9 @@ class TF_NN(BaseEstimator):
 			#if not (epoch+1) % 50: print('---- Epoch %2d: Avg. Training Loss: %.4f' % (epoch+1, np.mean(epoch_cost)))
 		if save:
 			self.saver.save(self.sess, self.get_model_path() + self.get_model_name() +'_final.ckpt')
+			# Save the model to protobuf  (pb and pbtxt) file.
+			tf.train.write_graph(self.sess.graph_def, self.get_model_path(), "saved_model.pb", False)
+			tf.train.write_graph(self.sess.graph_def, self.get_model_path(), "saved_model.pbtxt", True)
 
 	def predict(self, X, fromSavedModel=False):
 		with tf.name_scope("predict"):
