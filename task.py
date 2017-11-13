@@ -1,4 +1,5 @@
 from sklearn.base import BaseEstimator
+import os.path
 import time
 import tensorflow as tf
 import numpy as np
@@ -143,6 +144,7 @@ if __name__ == "__main__":
 	args = parser.parse_args()
 	print(args.job_dir)
 	path = args.train_files[1]
+	print (os.path.isfile(path))
 	print(path)
 	X = pd.read_csv(args.train_files[0],sep=';').values
 	Y = pd.read_csv(args.train_files[1],sep=';').values
